@@ -39,13 +39,16 @@ const Verify = () => {
     mutationFn: async (otp: string) => {
       const { data } = await axiosClient.post<{ user: IUser }>(
         "/api/auth/verify",
-        { email, otp }
+        { email, otp },
       );
       return data;
     },
     onSuccess: ({ user }) => {
       signIn("credentials", { email: user.email, callbackUrl: "/" });
       toast({ description: "Successfully verified" });
+    },
+    onError: async (error) => {
+      console.log(error);
     },
   });
 

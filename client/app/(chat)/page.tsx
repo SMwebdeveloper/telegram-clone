@@ -261,6 +261,7 @@ const HomePage = () => {
       toast({ description: "Contact added successfully" });
       contactForm.reset();
     } catch (error: any) {
+      console.log(error)
       if ((error as IError).response?.data?.message) {
         return toast({
           description: (error as IError).response.data.message,
