@@ -149,7 +149,8 @@ const HomePage = () => {
           toast({
             title: "New message",
             description: `${sender?.email.split("@")[0]} sent you a message`,
-          });
+            className: "top-right"
+          })
           if (!receiver.muted) {
             playSound(receiver.notificationSound);
           }

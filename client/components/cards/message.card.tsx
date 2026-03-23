@@ -30,16 +30,16 @@ const MessageCard: FC<Props> = ({ message, onReaction, onDeletedMessage }) => {
           className={cn(
             "m-2.5 font-medium text-xs flex",
             message.receiver?._id === currentContact?._id
-              ? "justify-start"
-              : "justify-end"
+              ? "justify-end"
+              : "justify-start"
           )}
         >
           <div
             className={cn(
               "relative inline p-2 pl-2.5 pr-12 max-w-full",
               message.receiver?._id === currentContact?._id
-                ? "bg-primary"
-                : "bg-secondary"
+                ? "bg-secondary"
+                : "bg-primary"
             )}
           >
             {message.image && (
@@ -51,7 +51,7 @@ const MessageCard: FC<Props> = ({ message, onReaction, onDeletedMessage }) => {
               />
             )}
             {message.text.length > 0 && (
-              <p className="text-sm text-white">{message.text}</p>
+              <p className={cn("text-sm text-white", message.receiver._id === currentContact?._id && "dark:text-white text-gray-900")}>{message.text}</p>
             )}
 
             <div className="right-1 bottom-0 absolute opacity-60 text-[9px] font-semibold flex gap-[3px]">

@@ -26,7 +26,7 @@ const ContactLists: FC<Props> = ({ contacts }) => {
   const { data: session } = useSession();
   const filteredContacts = contacts
     ?.filter((contact) =>
-      contact.email.toLowerCase().includes(query.toLowerCase())
+      contact.email.toLowerCase().includes(query.toLowerCase()),
     )
     .sort((a, b) => {
       const dateA = a.lastMessage?.updatedAt
@@ -47,7 +47,7 @@ const ContactLists: FC<Props> = ({ contacts }) => {
       <div
         className={cn(
           "flex justify-between items-center cursor-pointer hover:bg-secondary/50 md:p-2",
-          currentContact?._id === contact?._id && "bg-secondary/50"
+          currentContact?._id === contact?._id && "bg-secondary/50",
         )}
         onClick={onChat}
       >
@@ -90,9 +90,9 @@ const ContactLists: FC<Props> = ({ contacts }) => {
                         session?.currentUser?._id
                         ? "text-muted-foreground"
                         : contact.lastMessage.status !== CONST.READ
-                        ? "text-foreground"
-                        : "text-muted-foreground"
-                      : "text-muted-foreground"
+                          ? "text-foreground"
+                          : "text-muted-foreground"
+                      : "text-muted-foreground",
                   )}
                 >
                   Photo
@@ -108,9 +108,9 @@ const ContactLists: FC<Props> = ({ contacts }) => {
                       session?.currentUser?._id
                       ? "text-muted-foreground"
                       : contact.lastMessage.status !== CONST.READ
-                      ? "text-foreground"
-                      : "text-muted-foreground"
-                    : "text-muted-foreground"
+                        ? "text-foreground"
+                        : "text-muted-foreground"
+                    : "text-muted-foreground",
                 )}
               >
                 {contact?.lastMessage

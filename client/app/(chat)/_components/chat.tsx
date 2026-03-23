@@ -1,6 +1,7 @@
 import MessageCard from "@/components/cards/message.card";
 import ChatLoading from "@/components/loading/chat.loading";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { messageSchema } from "@/lib/validation";
@@ -50,11 +51,10 @@ const Chat: FC<Props> = ({
   const [open, setOpen] = useState(false);
   const { resolvedTheme } = useTheme();
   const scrollRef = useRef<HTMLFormElement | null>(null);
-  const { loadMessages } = useLoading();
+  const { loadMessages, isCreating } = useLoading();
   const { data: session } = useSession();
   const { editMessage, setEditMessage, currentContact } = useCurrentContact();
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
+  const inputRef = useRef<HTMLInputElement | null>(null); 
   const filteredMessages = messages.filter(
     (message) =>
       (message.sender._id === session?.currentUser?._id &&
@@ -178,7 +178,7 @@ const Chat: FC<Props> = ({
             </PopoverContent>
           </Popover>
           <Button type="submit" size={"icon"}>
-            <Send />
+            {isCreating ? <Loader2 className="animate-spin"/> : <Send/>}
           </Button>
         </form>
       </Form>

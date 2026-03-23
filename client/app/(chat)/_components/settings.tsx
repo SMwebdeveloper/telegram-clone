@@ -145,7 +145,7 @@ const Settings = () => {
       <Sheet open={isProfileOpen} onOpenChange={setIsProfileOpen}>
         <SheetContent
           side={"left"}
-          className="w-80 p-2 pb-4 h-screen sidebar-custom-scrollbar max-md:w-full"
+          className="w-80 p-2 pb-4 h-auto overflow-y-auto max-md:w-full"
         >
           <SheetHeader>
             <SheetTitle className="text-2xl">My profile</SheetTitle>
