@@ -97,7 +97,7 @@ const HomePage = () => {
 
   useEffect(() => {
     router.replace("/");
-    socket.current = io("ws://localhost:5000");
+    socket.current = io(process.env.NEXT_PUBLIC_SERVER_URL);
   }, []);
 
   useEffect(() => {

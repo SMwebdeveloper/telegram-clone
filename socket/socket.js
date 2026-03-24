@@ -18,7 +18,6 @@ const getSocketId = userId => {
 
 
 io.on("connection", socket => {
-    console.log("User connected", socket.id)
 
     socket.on('addOnlineUser', user => {
         addOnlineUser(user, socket.id)
@@ -66,7 +65,6 @@ io.on("connection", socket => {
         }
     })
     socket.on('disconnect', () => {
-        console.log('User disconnected', socket.id)
         users = users.filter(u => u.socketId !== socket.id)
         io.emit('getOnlineUsers', users)
     })
