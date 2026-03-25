@@ -27,7 +27,7 @@ import { Switch } from "@/components/ui/switch";
 import { toast } from "@/hooks/use-toast";
 import { axiosClient } from "@/http/axios";
 import { generateToken } from "@/lib/generate-token";
-import { UploadButton, UploadDropzone } from "@/lib/uploadthing";
+import { UploadButton } from "@/lib/uploadthing";
 import { useMutation } from "@tanstack/react-query";
 import {
   LogIn,

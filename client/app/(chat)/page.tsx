@@ -3,7 +3,7 @@
 import { Loader2 } from "lucide-react";
 import ContactList from "./_components/contact-lists";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import AddContact from "./_components/add-contact";
 import { useCurrentContact } from "@/hooks/use-current";
 import { useForm } from "react-hook-form";
@@ -168,7 +168,7 @@ const HomePage = () => {
 
       socket.current?.on(
         "getUpdateMessage",
-        ({ updatedMessage, sender, receiver }: GetSocketType) => {
+        ({ updatedMessage, sender }: GetSocketType) => {
           setTyping({ message: "", sender: null });
           setMessages((prev: any) =>
             prev.map((item: any) =>
@@ -262,7 +262,6 @@ const HomePage = () => {
       toast({ description: "Contact added successfully" });
       contactForm.reset();
     } catch (error: any) {
-      console.log(error)
       if ((error as IError).response?.data?.message) {
         return toast({
           description: (error as IError).response.data.message,
@@ -376,7 +375,7 @@ const HomePage = () => {
       );
       setEditMessage(null);
       messageForm.reset();
-    } catch (error) {
+    } catch {
       toast({ description: "Cannot edit message", variant: "destructive" });
     }
   };
@@ -400,7 +399,7 @@ const HomePage = () => {
         receiver: currentContact,
         sender: session?.currentUser,
       });
-    } catch (error) {
+    } catch {
       toast({ description: "Cannot read to message", variant: "destructive" });
     }
   };
@@ -437,7 +436,7 @@ const HomePage = () => {
             : item
         )
       );
-    } catch (error) {
+    } catch {
       toast({ description: "Cannot delete message", variant: "destructive" });
     }
   };

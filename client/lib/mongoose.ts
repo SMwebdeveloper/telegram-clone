@@ -1,4 +1,4 @@
-import mongoose, { ConnectOptions } from "mongoose";
+import mongoose from "mongoose";
 
 let isConnected: boolean = false;
 
@@ -16,7 +16,7 @@ export const connectToDatabase = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI, { autoCreate: true });
     isConnected = false;
-  } catch (error) {
+  } catch {
     console.log("Error connecting to database");
   }
 };

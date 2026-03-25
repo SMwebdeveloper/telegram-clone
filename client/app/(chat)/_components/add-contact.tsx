@@ -8,7 +8,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useLoading } from "@/hooks/use-loading";
 import { emailSchema } from "@/lib/validation";
 import { FC } from "react";

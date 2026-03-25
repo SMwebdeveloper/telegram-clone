@@ -8,7 +8,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,6 @@ import { Input } from "@/components/ui/input";
 import { useAuth } from "@/hooks/use-auth";
 import { useMutation } from "@tanstack/react-query";
 import { axiosClient } from "@/http/axios";
-import { IError } from "@/types";
 import { toast } from "@/hooks/use-toast";
 import { Label } from "@/components/ui/label";
 
