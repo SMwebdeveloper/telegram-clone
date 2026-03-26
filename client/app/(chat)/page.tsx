@@ -55,7 +55,7 @@ const HomePage = () => {
         "/api/user/contacts",
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       setContacts(data.contacts);
     } catch {
@@ -73,7 +73,7 @@ const HomePage = () => {
         `/api/user/messages/${currentContact?._id}`,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       setMessages(data.messages);
       setContacts((prev) =>
@@ -85,8 +85,8 @@ const HomePage = () => {
                   ? { ...item.lastMessage, status: CONST.READ }
                   : null,
               }
-            : item
-        )
+            : item,
+        ),
       );
     } catch {
       toast({ description: "Cannot fetch messages", variant: "destructive" });
@@ -107,7 +107,7 @@ const HomePage = () => {
         "getOnlineUsers",
         (data: { socketId: string; user: IUser }[]) => {
           setOnlineUsers(data.map((item) => item.user));
-        }
+        },
       );
       getContacts();
     }
@@ -149,12 +149,12 @@ const HomePage = () => {
           toast({
             title: "New message",
             description: `${sender?.email.split("@")[0]} sent you a message`,
-            className: "top-right"
-          })
+            className: "top-right",
+          });
           if (!receiver.muted) {
             playSound(receiver.notificationSound);
           }
-        }
+        },
       );
 
       socket.current?.on("getReadMessages", (messages: IMessage[]) => {
@@ -178,8 +178,8 @@ const HomePage = () => {
                     reaction: updatedMessage?.reaction,
                     text: updatedMessage?.text,
                   }
-                : item
-            )
+                : item,
+            ),
           );
           setContacts((prev: any) =>
             prev.map((item: any) =>
@@ -191,17 +191,17 @@ const HomePage = () => {
                         ? updatedMessage
                         : item.lastMessage,
                   }
-                : item
-            )
+                : item,
+            ),
           );
-        }
+        },
       );
 
       socket.current?.on(
         "getDeleteMessage",
         ({ deletedMessage, sender, filteredMessages }: GetSocketType) => {
           setMessages((prev) =>
-            prev.filter((item) => item._id !== deletedMessage?._id)
+            prev.filter((item) => item._id !== deletedMessage?._id),
           );
           const lastMessage = filteredMessages?.length
             ? filteredMessages?.[filteredMessages?.length - 1]
@@ -216,10 +216,10 @@ const HomePage = () => {
                         ? lastMessage
                         : item.lastMessage,
                   }
-                : item
-            )
+                : item,
+            ),
           );
-        }
+        },
       );
       socket.current?.on("getTyping", ({ message, sender }: GetSocketType) => {
         if (currentContact?._id === sender._id) {
@@ -252,7 +252,7 @@ const HomePage = () => {
         values,
         {
           headers: { Authorization: `Bearer ${token}` },
-        }
+        },
       );
       setContacts((prev) => [...prev, data.contact]);
       socket.current?.emit("createContact", {
@@ -284,7 +284,7 @@ const HomePage = () => {
       const { data } = await axiosClient.post<GetSocketType>(
         "/api/user/message",
         { ...values, receiver: currentContact?._id },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       setMessages((prev: any) => [...prev, data.newMessage]);
       setContacts((prev: any) =>
@@ -294,8 +294,8 @@ const HomePage = () => {
                 ...item,
                 lastMessage: { ...data.newMessage, status: CONST.READ },
               }
-            : item
-        )
+            : item,
+        ),
       );
       messageForm.reset();
       socket.current?.emit("sendMessage", {
@@ -324,7 +324,7 @@ const HomePage = () => {
       const { data } = await axiosClient.post<{ messages: IMessage[] }>(
         "/api/user/message-read",
         { messages: receivedMessages },
-        { headers: { Authorization: `Bearer ${token}` } }
+        { headers: { Authorization: `Bearer ${token}` } },
       );
       socket.current?.emit("readMessages", {
         messages: data.messages,
@@ -346,14 +346,14 @@ const HomePage = () => {
       const { data } = await axiosClient.put<{ updatedMessage: IMessage }>(
         `/api/user/message/${messageId}`,
         { text },
-        { headers: { Authorization: `Baeror ${token}` } }
+        { headers: { Authorization: `Baeror ${token}` } },
       );
       setMessages((prev) =>
         prev.map((item) =>
           item._id === data?.updatedMessage?._id
             ? { ...item, text: data.updatedMessage.text }
-            : item
-        )
+            : item,
+        ),
       );
       socket.current?.emit("updatedMessage", {
         updatedMessage: data?.updatedMessage,
@@ -370,12 +370,13 @@ const HomePage = () => {
                     ? data.updatedMessage
                     : item.lastMessage,
               }
-            : item
-        )
+            : item,
+        ),
       );
       setEditMessage(null);
       messageForm.reset();
-    } catch {
+    } catch (error) {
+      console.log(error);
       toast({ description: "Cannot edit message", variant: "destructive" });
     }
   };
@@ -385,14 +386,14 @@ const HomePage = () => {
       const { data } = await axiosClient.post<{ updatedMessage: IMessage }>(
         "/api/user/reaction",
         { reaction, messageId },
-        { headers: { Authorization: `Baeror ${token}` } }
+        { headers: { Authorization: `Baeror ${token}` } },
       );
       setMessages((prev) =>
         prev.map((item) =>
           item._id === data?.updatedMessage?._id
             ? { ...item, reaction: data?.updatedMessage?.reaction }
-            : item
-        )
+            : item,
+        ),
       );
       socket.current?.emit("updatedMessage", {
         updatedMessage: data?.updatedMessage,
@@ -409,10 +410,10 @@ const HomePage = () => {
     try {
       const { data } = await axiosClient.delete(
         `/api/user/message/${messageId}`,
-        { headers: { Authorization: `Baeror ${token}` } }
+        { headers: { Authorization: `Baeror ${token}` } },
       );
       const filteredMessages = messages.filter(
-        (item) => item._id !== data?._id
+        (item) => item._id !== data?._id,
       );
       setMessages(filteredMessages);
       socket.current?.emit("deleteMessage", {
@@ -433,8 +434,8 @@ const HomePage = () => {
                       : null
                     : item.lastMessage,
               }
-            : item
-        )
+            : item,
+        ),
       );
     } catch {
       toast({ description: "Cannot delete message", variant: "destructive" });
